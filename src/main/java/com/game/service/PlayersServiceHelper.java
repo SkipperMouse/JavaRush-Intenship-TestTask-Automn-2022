@@ -14,13 +14,11 @@ public class PlayersServiceHelper {
         return new Comparator<Player>() {
             @Override
             public int compare(Player o1, Player o2) {
-                return switch(order){
-                    case NAME: yield o1.getName().compareTo(o2.getName());
-                    case LEVEL: yield o1.getLevel().compareTo(o2.getLevel());
-                    case EXPERIENCE: yield o1.getExperience().compareTo(o2.getExperience());
-                    case BIRTHDAY: yield o1.getBirthday().compareTo(o2.getBirthday());
-                    default: yield o1.getId().compareTo(o2.getId());
-                };
+                if (order == PlayerOrder.NAME) return o1.getName().compareTo(o2.getName());
+                if (order == PlayerOrder.LEVEL) return  o1.getLevel().compareTo(o2.getLevel());
+                if (order == PlayerOrder.EXPERIENCE) return o1.getExperience().compareTo(o2.getExperience());
+                if (order == PlayerOrder.BIRTHDAY) return o1.getBirthday().compareTo(o2.getBirthday());
+                    return o1.getId().compareTo(o2.getId());
             }
         };
     }

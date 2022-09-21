@@ -57,7 +57,6 @@ public class PlayersService {
     }
 
 
-    //TODO странное добавление персонажей. Протестировать
     @Transactional(readOnly = false)
     public Optional<Player> createPlayer(Player player) throws BadRequestException {
         if (player.getName() == null || player.getTitle() == null || player.getRace() == null || player.getProfession() == null || player.getBirthday() == null || player.getExperience() ==null){
@@ -76,7 +75,7 @@ public class PlayersService {
     public Player findPlayerById(Long id) throws BadRequestException, PlayerNotFoundException {
         if(id == null || id <= 0) throw new BadRequestException();
         Optional<Player> player = playerRepository.findById(id);
-        if (player.isEmpty()) throw new PlayerNotFoundException();
+        if (!player.isPresent()) throw new PlayerNotFoundException();
         return player.get();
     }
 
